@@ -43,18 +43,24 @@ if __name__ == '__main__':
     entry_dest = tkinter.Entry(frame_left, textvariable=entry_dest_sv, width=20)
     entry_dest.grid(row=0, column=1)
 
+    #Text
+    text_dest = tkinter.Text(frame_left, relief=tkinter.SOLID, width=40, height=20)
+    text_dest.config(state=tkinter.DISABLED)
+    text_dest.config(bg='gray97', bd=0)
+    text_dest.grid(row=1, column=0, columnspan=2)
+
 
     #---------- Frame(right) ----------
     #Label
     label_src = tkinter.Label(frame_right, text="自分")
     label_src.grid(row=0, column=0)
 
-    #Text
+    #Entry
     entry_src_sv = tkinter.StringVar()
     entry_src = tkinter.Entry(frame_right, textvariable=entry_src_sv, width=20)
     entry_src.grid(row=0, column=1)
 
-    #
+    #EntryにIPアドレスを表示
     host = socket.gethostname()
     ip = socket.gethostbyname(host)
     entry_src_sv.set(ip)
