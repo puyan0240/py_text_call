@@ -65,6 +65,10 @@ if __name__ == '__main__':
     ip = socket.gethostbyname(host)
     entry_src_sv.set(ip)
 
+    #Text
+    text_src = tkinter.Text(frame_right, relief=tkinter.SOLID, width=40, height=20)
+    text_src.grid(row=1, column=0, columnspan=2)
+
 
 
 
