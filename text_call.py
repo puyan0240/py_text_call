@@ -3,7 +3,22 @@ from tkinter import ttk
 import socket
 
 
-entry_test = []
+#言語テーブル
+LANG_TBL_NAME=0
+LANG_TBL_PARAME=1   # 翻訳、読み上げ
+lang_tbl = [
+    ["Japanese (日本語)", "ja"],
+    ["English (英語)", "en"],
+    ["German (ドイツ語)", "de"],
+    ["French (フランス語)", "fr"],
+    ["Italian (イタリア語)", "it"],
+    ["Spanish (スペイン語)", "es"],
+    ["Portuguese (ポルトガル語)", "pt"],
+    ["Russian (ロシア語)", "ru"],
+    ["Korean (韓国語)", "ko"],
+    ["chinese (中国語)", "zh-cn"],
+    ["Vietnamese (ベトナム語)", "vi"]
+]
 
 
 
@@ -105,9 +120,23 @@ if __name__ == '__main__':
     entry_center3 = tkinter.Entry(frame_center3, textvariable=entry_center3_sv, width=100)
     entry_center3.grid(row=0, column=1)
 
-    #---------- Button ----------
+    #---------- Frame(Bottom) ----------
+    #Button
     send_btn = tkinter.Button(frame_bottom, text="送信", command=click_send_btn)
-    send_btn.pack(padx=20, pady=20)
+    send_btn.grid(row=0, column=0, padx=40, pady=15, ipadx=15, ipady=10)
+
+    #Label
+    label_bottom = tkinter.Label(frame_bottom, text="言語")
+    label_bottom.grid(row=0, column=1)
+
+    #Combobox
+    cb_bottom_menu = []
+    for val in lang_tbl:
+        cb_bottom_menu.append(val[LANG_TBL_NAME])
+    cb_bottom = ttk.Combobox(frame_bottom, textvariable=tkinter.StringVar(), values=cb_bottom_menu, state="readonly", width=25)
+    cb_bottom.current(0)
+    cb_bottom.grid(row=0, column=2)
+
 
     root.mainloop()
 
