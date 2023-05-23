@@ -1,5 +1,6 @@
 import tkinter
 from tkinter import ttk
+from googletrans import Translator  #google翻訳
 import socket
 
 
@@ -26,7 +27,22 @@ def click_send_btn():
     #入力枠の内容を取得
     text = entry_center3_sv.get()
 
-    print(cb_trans.get())
+    #翻訳言語の確定
+    lang_trans = 0
+    for val in lang_tbl:
+        if val[LANG_TBL_NAME] == cb_trans.get():
+            lang_trans = val[LANG_TBL_PARAME]
+            break
+
+    #翻訳実行
+    if lang_trans != 0:
+        try:
+            trans = Translator()
+            result = trans.translate(text, lang_trans)
+            text = result.text
+        except Exception as e:
+            print(f"trans err: {str(e)}")
+
 
     #入力枠の内容を送信枠に表示
     entry_center2_sv.set(text)
