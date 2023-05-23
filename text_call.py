@@ -1,7 +1,8 @@
 import tkinter
-from tkinter import ttk
+from tkinter import ttk,messagebox
 from googletrans import Translator  #google翻訳
 import socket
+import threading    #スレッド
 
 
 #言語テーブル
@@ -21,7 +22,23 @@ lang_tbl = [
     ["Vietnamese (ベトナム語)", "vi"]
 ]
 
+tcp_port = 12345
+buffer_size = 1024
 
+loop = True
+task_id = 0
+
+def tcp_server_task():
+
+    tcp_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    tcp_server.bind(("127.0.0.1", tcp_port))
+
+    tcp_server.listen(5)
+
+    while loop:
+        print("+")
+        client,address = tcp_server.accept()
 
 def click_send_btn():
     #入力枠の内容を取得
@@ -50,6 +67,29 @@ def click_send_btn():
     #入力枠をクリア
     entry_center3_sv.set("")
 
+
+############################################################
+# タスク停止
+############################################################
+def stop_task():
+    global loop,task_id
+
+    if task_id != 0:
+        loop = False
+        # タスク終了まで待つ
+        task_id.join()
+
+
+############################################################
+#フレームの終了「×」を押された時のイベント
+############################################################
+def click_close():
+    if messagebox.askokcancel("確認", "アプリを終了しますか？"):
+        # タスク停止
+        stop_task()
+
+        # tkinter終了
+        root.destroy()
 
 if __name__ == '__main__':
 
@@ -155,6 +195,13 @@ if __name__ == '__main__':
     cb_trans.current(0)
     cb_trans.grid(row=0, column=2)
 
+
+    #
+    #task_id = threading.Thread(target=tcp_server_task)
+    #task_id.start()
+
+    #終了ボタン押下イベント登録
+    root.protocol("WM_DELETE_WINDOW", click_close)
 
     root.mainloop()
 
