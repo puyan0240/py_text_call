@@ -26,6 +26,8 @@ def click_send_btn():
     #入力枠の内容を取得
     text = entry_center3_sv.get()
 
+    print(cb_trans.get())
+
     #入力枠の内容を送信枠に表示
     entry_center2_sv.set(text)
 
@@ -126,16 +128,16 @@ if __name__ == '__main__':
     send_btn.grid(row=0, column=0, padx=40, pady=15, ipadx=15, ipady=10)
 
     #Label
-    label_bottom = tkinter.Label(frame_bottom, text="言語")
-    label_bottom.grid(row=0, column=1)
+    label_trans = tkinter.Label(frame_bottom, text="言語")
+    label_trans.grid(row=0, column=1)
 
     #Combobox
-    cb_bottom_menu = []
+    cb_trans_menu = []
     for val in lang_tbl:
-        cb_bottom_menu.append(val[LANG_TBL_NAME])
-    cb_bottom = ttk.Combobox(frame_bottom, textvariable=tkinter.StringVar(), values=cb_bottom_menu, state="readonly", width=25)
-    cb_bottom.current(0)
-    cb_bottom.grid(row=0, column=2)
+        cb_trans_menu.append(val[LANG_TBL_NAME])
+    cb_trans = ttk.Combobox(frame_bottom, textvariable=tkinter.StringVar(), values=cb_trans_menu, state="readonly", width=25)
+    cb_trans.current(0)
+    cb_trans.grid(row=0, column=2)
 
 
     root.mainloop()
