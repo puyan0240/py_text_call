@@ -30,15 +30,27 @@ task_id = 0
 
 def tcp_server_task():
 
+    #ソケット作成
     tcp_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+    #IPアドレスとポートを括りつける
     tcp_server.bind(("127.0.0.1", tcp_port))
 
+    #接続待ち受け
     tcp_server.listen(5)
 
     while loop:
         print("+")
+        #クライアントから接続あり
         client,address = tcp_server.accept()
+
+        #データを受信
+        data = client.recv(buffer_size)
+
+        #接続終了
+        client.close()
+
+
 
 def click_send_btn():
     #入力枠の内容を取得
@@ -68,28 +80,6 @@ def click_send_btn():
     entry_center3_sv.set("")
 
 
-############################################################
-# タスク停止
-############################################################
-def stop_task():
-    global loop,task_id
-
-    if task_id != 0:
-        loop = False
-        # タスク終了まで待つ
-        task_id.join()
-
-
-############################################################
-#フレームの終了「×」を押された時のイベント
-############################################################
-def click_close():
-    if messagebox.askokcancel("確認", "アプリを終了しますか？"):
-        # タスク停止
-        stop_task()
-
-        # tkinter終了
-        root.destroy()
 
 if __name__ == '__main__':
 
@@ -197,11 +187,10 @@ if __name__ == '__main__':
 
 
     #
-    #task_id = threading.Thread(target=tcp_server_task)
-    #task_id.start()
+    task_id = threading.Thread(target=tcp_server_task)
+    task_id.daemon = True  #デーモン
+    task_id.start()
 
-    #終了ボタン押下イベント登録
-    root.protocol("WM_DELETE_WINDOW", click_close)
 
     root.mainloop()
 
