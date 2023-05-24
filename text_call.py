@@ -46,9 +46,25 @@ def tcp_server_task():
 
         #データを受信
         data = client.recv(buffer_size)
+        print(data.decode('utf-8'))
 
         #接続終了
         client.close()
+
+
+def tcp_send(text):
+    
+    #ソケット作成
+    tcp_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    #接続
+    tcp_client.connect(("127.0.0.1", tcp_port))
+
+    #データ送信
+    tcp_client.send(text.encode('utf-8'))
+
+    #接続終了
+    tcp_client.close()
 
 
 
@@ -79,6 +95,7 @@ def click_send_btn():
     #入力枠をクリア
     entry_center3_sv.set("")
 
+    tcp_send(text)
 
 
 if __name__ == '__main__':
