@@ -46,14 +46,35 @@ def tcp_server_task():
 
         #データを受信
         data = client.recv(buffer_size)
-        print(data.decode('utf-8'))
+
+        #改行で配列化
+        data = data.splitlines()
+        lang_param = data[0].decode('utf-8') #言語種別
+        text = data[1].decode('utf-8') #文字テキスト
+
+        print(lang_param)
+        print(text)
 
         #接続終了
         client.close()
 
 
 def tcp_send(text):
+
+    #送信する言語
+    lang_param = ""
+    for val in lang_tbl:
+        if val[LANG_TBL_NAME] == cb_trans.get():
+            lang_param = val[LANG_TBL_PARAME]
+            break
+    if lang_param == "":
+        return
     
+    #送信データ作成: 言語種別\n文字テキスト\n
+    data = lang_param +"\n"
+    data += (text + "\n")
+
+
     #ソケット作成
     tcp_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -61,7 +82,7 @@ def tcp_send(text):
     tcp_client.connect(("127.0.0.1", tcp_port))
 
     #データ送信
-    tcp_client.send(text.encode('utf-8'))
+    tcp_client.send(data.encode('utf-8'))
 
     #接続終了
     tcp_client.close()
