@@ -48,7 +48,7 @@ def tcp_server_task():
     tcp_server.listen(5)
 
     while loop:
-        print("+")
+
         #クライアントから接続あり
         client,address = tcp_server.accept()
 
@@ -110,7 +110,6 @@ def tcp_send(text):
 
     #送信先のホストアドレスからIPアドレスを作成
     host_addr = entry_left_sv.get()
-    print(host_addr)
     try:
         val = int(host_addr)
         if val <= 0 or val >= 255:
@@ -122,7 +121,6 @@ def tcp_send(text):
 
     #送信先のIPアドレス
     dest_ip = net_addr+host_addr
-    print(dest_ip)
 
 
     #ソケット作成
