@@ -110,8 +110,10 @@ def tcp_send(text):
     try:
         val = int(host_addr)
         if val <= 0 or val >= 255:
+            messagebox.showerror("エラー","通信相手は 1から254 の範囲で指定して下さい")
             return ret
     except:
+        messagebox.showerror("エラー","通信相手は 1から254 の範囲で指定して下さい")
         return ret
 
     #送信先のIPアドレス
