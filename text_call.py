@@ -225,6 +225,7 @@ if __name__ == '__main__':
     my_ip = socket.gethostbyname(host)
     val = my_ip.split(".")
     entry_rigth_sv.set(val[3])
+    entry_rigth.config(state=tkinter.DISABLED) #編集禁止
 
     #通信で使用するネットワークアドレスを作成
     net_addr = val[0]+"."+val[1]+"."+val[2]+"."
