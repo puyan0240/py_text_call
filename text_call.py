@@ -202,7 +202,7 @@ if __name__ == '__main__':
     frame_right.grid(row=0, column=1)
     frame_center1.grid(row=1, column=0, columnspan=2)
     frame_center2.grid(row=2, column=0, columnspan=2)
-    separator.grid(row=3, column=0, columnspan=2, sticky="ew")
+    separator.grid(row=3, column=0, columnspan=2, sticky="ew", pady=5)
     frame_center3.grid(row=4, column=0, columnspan=2)
     frame_bottom.grid(row=5, column=0, columnspan=2)
 
@@ -210,7 +210,7 @@ if __name__ == '__main__':
     #---------- Frame(left) ----------
     #Label
     label_left = tkinter.Label(frame_left, text="通信相手(1-254)")
-    label_left.grid(row=0, column=0)
+    label_left.grid(row=0, column=0, pady=10)
 
     #Entry
     entry_left_sv = tkinter.StringVar()
@@ -221,7 +221,7 @@ if __name__ == '__main__':
     #---------- Frame(right) ----------
     #Label
     label_right = tkinter.Label(frame_right, text="自分")
-    label_right.grid(row=0, column=0)
+    label_right.grid(row=0, column=0, pady=10)
 
     #Entry
     entry_rigth_sv = tkinter.StringVar()
@@ -242,36 +242,36 @@ if __name__ == '__main__':
     #---------- Frame(center1) ----------
     #Label
     label_center1 = tkinter.Label(frame_center1, text="受信")
-    label_center1.grid(row=0, column=0)
+    label_center1.grid(row=0, column=0, padx=5, pady=5)
 
     #Entry
     entry_center1_sv = tkinter.StringVar()
     entry_center1 = tkinter.Entry(frame_center1, textvariable=entry_center1_sv, width=100)
     entry_center1.config(state=tkinter.DISABLED)
-    entry_center1.grid(row=0, column=1)
+    entry_center1.grid(row=0, column=1, padx=5, pady=5)
 
 
     #---------- Frame(center2) ----------
     #Label
     label_center2 = tkinter.Label(frame_center2, text="送信")
-    label_center2.grid(row=0, column=0)
+    label_center2.grid(row=0, column=0, padx=5, pady=5)
 
     #Entry
     entry_center2_sv = tkinter.StringVar()
     entry_center2 = tkinter.Entry(frame_center2, textvariable=entry_center2_sv, width=100)
     entry_center2.config(state=tkinter.DISABLED)
-    entry_center2.grid(row=0, column=1)
+    entry_center2.grid(row=0, column=1, padx=5, pady=5)
 
 
     #---------- Frame(center3) ----------
     #Label
     label_center3 = tkinter.Label(frame_center3, text="入力")
-    label_center3.grid(row=0, column=0)
+    label_center3.grid(row=0, column=0, padx=5, pady=5)
 
     #Entry
     entry_center3_sv = tkinter.StringVar()
     entry_center3 = tkinter.Entry(frame_center3, textvariable=entry_center3_sv, width=100)
-    entry_center3.grid(row=0, column=1)
+    entry_center3.grid(row=0, column=1, padx=5, pady=5)
 
     #---------- Frame(Bottom) ----------
     #Button
