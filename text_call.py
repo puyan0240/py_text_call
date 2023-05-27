@@ -25,6 +25,8 @@ lang_tbl = [
 tcp_port = 12345
 buffer_size = 1024
 
+net_addr = ""
+
 loop = True
 task_id = 0
 
@@ -78,6 +80,20 @@ def tcp_send(text):
     data = lang_param +"\n"
     data += (text + "\n")
 
+    #送信先のホストアドレスからIPアドレスを作成
+    host_addr = entry_left_sv.get()
+    print(host_addr)
+    try:
+        val = int(host_addr)
+        if val <= 0 or val >= 255:
+            return ret
+    except:
+        return ret
+
+    #送信先のIPアドレス
+    dest_ip = net_addr+host_addr
+    print(dest_ip)
+
 
     #ソケット作成
     tcp_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -85,7 +101,7 @@ def tcp_send(text):
     #TCPデータ送信
     try:
         #接続
-        tcp_client.connect(("127.0.0.1", tcp_port))
+        tcp_client.connect((dest_ip, tcp_port))
 
         #データ送信
         tcp_client.send(data.encode('utf-8'))
@@ -183,8 +199,12 @@ if __name__ == '__main__':
 
     #EntryにIPアドレスを表示
     host = socket.gethostname()
-    ip = socket.gethostbyname(host)
-    entry_rigth_sv.set(ip)
+    my_ip = socket.gethostbyname(host)
+    entry_rigth_sv.set(my_ip)
+
+    #通信で使用するネットワークアドレスを作成
+    val = my_ip.split(".")
+    net_addr = val[0]+"."+val[1]+"."+val[2]+"."
 
 
     #---------- Frame(center1) ----------
