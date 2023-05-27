@@ -59,7 +59,10 @@ def tcp_server_task():
         client.close()
 
 
+#TCPデータ送信
 def tcp_send(text):
+
+    ret = False
 
     #送信する言語
     lang_param = ""
@@ -78,15 +81,25 @@ def tcp_send(text):
     #ソケット作成
     tcp_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    #接続
-    tcp_client.connect(("127.0.0.1", tcp_port))
+    #TCPデータ送信
+    try:
+        #接続
+        tcp_client.connect(("127.0.0.1", tcp_port))
+        #tcp_client.connect(("192.168.0.200", tcp_port))
 
-    #データ送信
-    tcp_client.send(data.encode('utf-8'))
+        #データ送信
+        tcp_client.send(data.encode('utf-8'))
+
+        #送信成功
+        ret = True
+
+    except Exception as e:
+        print(f"tcp_send err: {str(e)}")
 
     #接続終了
     tcp_client.close()
 
+    return ret
 
 
 def click_send_btn():
@@ -109,14 +122,16 @@ def click_send_btn():
         except Exception as e:
             print(f"trans err: {str(e)}")
 
-
-    #入力枠の内容を送信枠に表示
-    entry_center2_sv.set(text)
+    #TCPデータ送信
+    ret = tcp_send(text)
+    if ret == True:
+        #入力枠の内容を送信枠に表示
+        entry_center2_sv.set(text)
 
     #入力枠をクリア
     entry_center3_sv.set("")
 
-    tcp_send(text)
+
 
 
 if __name__ == '__main__':
