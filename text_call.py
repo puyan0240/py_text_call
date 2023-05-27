@@ -130,6 +130,9 @@ def tcp_send(text):
 
     #TCPデータ送信
     try:
+        #接続トライ時間を設定
+        tcp_client.settimeout(2)  #2秒
+
         #接続
         tcp_client.connect((dest_ip, tcp_port))
 
@@ -138,6 +141,9 @@ def tcp_send(text):
 
         #送信成功
         ret = True
+
+    except TimeoutError:
+        messagebox.showerror("エラー","通信相手がいません")
 
     except Exception as e:
         print(f"tcp_send err: {str(e)}")
