@@ -3,6 +3,7 @@ from tkinter import ttk,messagebox
 from googletrans import Translator  #google翻訳
 from gtts import gTTS   # 文字->音声ファイル化
 from playsound import playsound  #音声ファイルを再生
+import os
 import socket
 import threading    #スレッド
 
@@ -77,6 +78,10 @@ def tcp_server_task():
             playsound(TMP_PLAY_FILENAME)
         except Exception as e:
             print(f"play err: {str(e)}")
+
+        #音声ファイルを削除
+        if os.path.exists(TMP_PLAY_FILENAME) == True:
+            os.remove(TMP_PLAY_FILENAME)
 
 
 #TCPデータ送信
