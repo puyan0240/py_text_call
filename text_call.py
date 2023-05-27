@@ -34,7 +34,7 @@ def tcp_server_task():
     tcp_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     #IPアドレスとポートを括りつける
-    tcp_server.bind(("127.0.0.1", tcp_port))
+    tcp_server.bind(("0.0.0.0", tcp_port))
 
     #接続待ち受け
     tcp_server.listen(5)
@@ -85,7 +85,6 @@ def tcp_send(text):
     try:
         #接続
         tcp_client.connect(("127.0.0.1", tcp_port))
-        #tcp_client.connect(("192.168.0.200", tcp_port))
 
         #データ送信
         tcp_client.send(data.encode('utf-8'))
