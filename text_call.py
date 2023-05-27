@@ -52,6 +52,10 @@ def tcp_server_task():
         #クライアントから接続あり
         client,address = tcp_server.accept()
 
+        #相手のホストアドレスを通信相手枠に表示
+        val = address[0].split(".")
+        entry_left_sv.set(val[3])
+
         #データを受信
         data = client.recv(buffer_size)
 
@@ -59,9 +63,6 @@ def tcp_server_task():
         data = data.splitlines()
         lang_param = data[0].decode('utf-8') #言語種別
         text = data[1].decode('utf-8') #文字テキスト
-
-        print(lang_param)
-        print(text)
 
         #接続終了
         client.close()
