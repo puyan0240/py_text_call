@@ -178,7 +178,7 @@ if __name__ == '__main__':
 
     #---------- Frame(left) ----------
     #Label
-    label_left = tkinter.Label(frame_left, text="通信相手")
+    label_left = tkinter.Label(frame_left, text="通信相手(1-254)")
     label_left.grid(row=0, column=0)
 
     #Entry
