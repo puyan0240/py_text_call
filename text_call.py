@@ -67,6 +67,10 @@ def tcp_server_task():
         #接続終了
         client.close()
 
+        #受信した文字テキストを受信枠に表示する
+        entry_center1_sv.set(text)
+
+
         #音声ファイル化
         try:
             out = gTTS(text, lang=lang_param, slow=False)
@@ -173,7 +177,8 @@ def click_send_btn():
     #入力枠をクリア
     entry_center3_sv.set("")
 
-
+    #受信枠をクリアする
+    entry_center1_sv.set("")
 
 
 if __name__ == '__main__':
