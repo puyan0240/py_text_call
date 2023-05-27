@@ -71,7 +71,8 @@ def tcp_send(text):
             lang_param = val[LANG_TBL_PARAME]
             break
     if lang_param == "":
-        return
+        return ret
+    
     
     #送信データ作成: 言語種別\n文字テキスト\n
     data = lang_param +"\n"
