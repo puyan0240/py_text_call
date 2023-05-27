@@ -197,13 +197,13 @@ if __name__ == '__main__':
     entry_rigth = tkinter.Entry(frame_right, textvariable=entry_rigth_sv, width=20)
     entry_rigth.grid(row=0, column=1)
 
-    #EntryにIPアドレスを表示
+    #Entryに自分のIPアドレスのホストアドレスを表示
     host = socket.gethostname()
     my_ip = socket.gethostbyname(host)
-    entry_rigth_sv.set(my_ip)
+    val = my_ip.split(".")
+    entry_rigth_sv.set(val[3])
 
     #通信で使用するネットワークアドレスを作成
-    val = my_ip.split(".")
     net_addr = val[0]+"."+val[1]+"."+val[2]+"."
 
 
