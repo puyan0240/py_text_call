@@ -1,9 +1,13 @@
 import tkinter
 from tkinter import ttk,messagebox
 from googletrans import Translator  #google翻訳
+from gtts import gTTS   # 文字->音声ファイル化
 import socket
 import threading    #スレッド
 
+
+#一時ファイル
+TMP_PLAY_FILENAME = "tmp_play.mp3"
 
 #言語テーブル
 LANG_TBL_NAME=0
@@ -59,6 +63,13 @@ def tcp_server_task():
 
         #接続終了
         client.close()
+
+        #音声ファイル化
+        try:
+            out = gTTS(text, lang=lang_param, slow=False)
+            out.save(TMP_PLAY_FILENAME)
+        except Exception as e:
+            print(f"mp3 file err: {str(e)}")
 
 
 #TCPデータ送信
