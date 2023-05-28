@@ -1,4 +1,5 @@
 import tkinter
+import tkinter.simpledialog
 from tkinter import ttk,messagebox
 from googletrans import Translator  #google翻訳
 from gtts import gTTS   # 文字->音声ファイル化
@@ -185,6 +186,19 @@ def click_send_btn():
     entry_center1_sv.set("")
 
 
+############################################################
+#フレームの終了「×」を押された時のイベント
+############################################################
+def click_close():
+    val = tkinter.StringVar()
+    val.set(tkinter.simpledialog.askstring('パスワード', 'パスワードを入力してください'))
+    if val.get() == "1234":
+        # tkinter終了
+        root.destroy()
+    else:
+        messagebox.showerror("エラー","パスワードが間違っています")
+
+
 if __name__ == '__main__':
 
     #---------- Window作成 ----------
@@ -300,6 +314,9 @@ if __name__ == '__main__':
     task_id.daemon = True  #デーモン
     task_id.start()
 
+
+    #終了ボタン押下イベント登録
+    root.protocol("WM_DELETE_WINDOW", click_close)
 
     root.mainloop()
 
