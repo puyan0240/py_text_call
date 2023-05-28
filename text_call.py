@@ -33,10 +33,12 @@ tcp_port = 12345
 buffer_size = 1024
 
 net_addr = ""
-
-loop = True
 task_id = 0
 
+
+############################################################
+#TCPサーバー受信タスク
+############################################################
 def tcp_server_task():
 
     #ソケット作成
@@ -48,7 +50,7 @@ def tcp_server_task():
     #接続待ち受け
     tcp_server.listen(5)
 
-    while loop:
+    while True:
 
         #クライアントから接続あり
         client,address = tcp_server.accept()
@@ -90,7 +92,9 @@ def tcp_server_task():
             os.remove(TMP_PLAY_FILENAME)
 
 
+############################################################
 #TCPデータ送信
+############################################################
 def tcp_send(text):
 
     ret = False
@@ -153,6 +157,9 @@ def tcp_send(text):
     return ret
 
 
+############################################################
+#[送信]ボタン押下イベント
+############################################################
 def click_send_btn():
     #入力枠の内容を取得
     text = entry_center3_sv.get()
@@ -309,9 +316,9 @@ if __name__ == '__main__':
     cb_trans.grid(row=0, column=2)
 
 
-    #
+    #TCPサーバー受信タスクを起動
     task_id = threading.Thread(target=tcp_server_task)
-    task_id.daemon = True  #デーモン
+    task_id.daemon = True  #デーモン ※tkinter終了と併せてタスク終了する
     task_id.start()
 
 
